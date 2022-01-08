@@ -63,4 +63,3 @@ class Register(Resource):
 
 
 app.run(debug=True)
-
