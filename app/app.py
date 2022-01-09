@@ -1,7 +1,7 @@
-import flask import Flask, request, jsonify, make_request, session
-import jwt, bcrypt
+import bcrypt
+from flask import Flask, request
 from flask_restful import Api, Resource
-from datetime import datetime, timedelta
+from pymongo import MongoClient
 
 #Flask REST API Init
 app = Flask(__name__)
@@ -48,7 +48,7 @@ class Login(Resource):
         password = posted_data["password"]
 
         # Validate
-        if username and password:
+        if request.get_json()['username'] and request.get_json()['password']:
             validate_credentials(username, password)
         else:
             return {"message": "Please enter all required!"}
@@ -58,8 +58,12 @@ class Signup(Resource):
     pass
 
 
-class Register(Resource):
+class Logout(Resource):
     pass
+
+api.add_resource(Login, '/login')
+api.add_resource(Signup, '/login')
+api.add_resource(Logout, '/logout')
 
 
 app.run(debug=True)
