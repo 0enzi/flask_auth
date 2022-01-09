@@ -5,6 +5,7 @@ from pymongo import MongoClient
 
 #Flask REST API Init
 app = Flask(__name__)
+app.config['SECRET_KEY']
 api = Api(app)
 
 
@@ -14,6 +15,7 @@ client = MongoClient("mongodb://db:27017")
 # create a new DB named as aNewDB
 db = client.DocumentsDB                 
 users = db['Users']
+
 
 # Objectives
 """
