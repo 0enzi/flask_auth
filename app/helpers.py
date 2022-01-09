@@ -1,7 +1,7 @@
-import jwt
+import jwt, request
 from datetime import datetime
 from functools import wraps
-
+from flask import request
 
 def login(username, password):
     token = jwt.encode({
@@ -14,6 +14,7 @@ def login(username, password):
 
     #TODO try and accept since there are many exceptions
 
+
 def token_required(func):
     @wraps(func)
     def decorated(*args, **kwargs):
@@ -22,6 +23,6 @@ def token_required(func):
             return {'message': 'Token is required'}
         
         try:
-        data = jwt.decode(token, app.config['SECRET_KEY'])
+            data = jwt.decode(token, app.config['SECRET_KEY'])
         except:
-            return {'message': 'Invalid t'}
+            return {'message': 'Invalid tokem'}
