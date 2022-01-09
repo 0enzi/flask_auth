@@ -1,9 +1,7 @@
-import bcrypt, jwt
 from flask import Flask, request
 from flask_restful import Api, Resource
 from pymongo import MongoClient
-from functools import wraps
-from helpers import login
+
 
 #Flask REST API Init
 app = Flask(__name__)
@@ -47,24 +45,17 @@ Objectives
 
 """
 
-# Helper functions
-def validate_credentials(username, password):
-    hashed_pw = users.find({"Username": username})[0]["Password"]
 
-    if bcrypt.checkpw(password.encode("utf-8"), hashed_pw):
-        login(username, password)
-    else:
-        return make_response('Unable to verify', 403, {"WWW-Authenticate": 'Basic realm: "Authentication Failed!"' })
-
-
-
-
+# Routes [NON API]
 @app.route("/")
 def home():
     if not session.get('logged_in'):
         return render_template("login.html")
     else:
         return 'Your are logged in!'
+
+@app.route("/public")
+
 
 class Login(Resource):
     def post(self):
