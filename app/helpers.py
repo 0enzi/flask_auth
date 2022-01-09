@@ -1,4 +1,4 @@
-import jwt, request, bcrypt
+import jwt, bcrypt
 from datetime import datetime
 from functools import wraps
 from flask import request
