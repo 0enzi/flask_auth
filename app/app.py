@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_restful import Api, Resource
 from pymongo import MongoClient
+from helpers import token_required, validate_credentials
 
 
 #Flask REST API Init
@@ -52,9 +53,17 @@ def home():
     if not session.get('logged_in'):
         return render_template("login.html")
     else:
-        return 'Your are logged in!'
+        return "You're are logged in!"
 
 @app.route("/public")
+def public():
+    return "For public"
+
+
+@app.route("/auth")
+@token_required
+def auth():
+    return "You are logged in"
 
 
 class Login(Resource):
@@ -70,16 +79,6 @@ class Login(Resource):
             return {"message": "Please enter all required!"}
 
 
-class Signup(Resource):
-    pass
-
-
-class Logout(Resource):
-    pass
-
 api.add_resource(Login, '/login')
-api.add_resource(Signup, '/login')
-api.add_resource(Logout, '/logout')
-
 
 app.run(debug=True)
