@@ -7,6 +7,7 @@ from functools import wraps
 import jwt, bcrypt
 
 
+
 #Flask REST API Init
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "409e092b3e8d42698f341f4fe4d74be5"
